@@ -12,7 +12,7 @@ def main():
     if len(sys.argv) == 1:
         print("Please give a prompt")
         sys.exit(1)
-    user_prompt = sys.argv[1:]
+    user_prompt = sys.argv[1]
     messages = [
     types.Content(role="user", parts=[types.Part(text=user_prompt)]),
 ]
@@ -21,8 +21,10 @@ def main():
         contents = messages
 )
     print(response.text)
-    print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
-    print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
+    if "--verbose" in sys.argv:
+        print(f"User prompt: {user_prompt}")
+        print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
+        print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
 
 
 if __name__ == "__main__":
