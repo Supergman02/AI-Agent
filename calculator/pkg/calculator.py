@@ -16,6 +16,11 @@ class Calculator:
     def evaluate(self, expression):
         if not expression or expression.isspace():
             return None
+
+        # Insert spaces around operators
+        for op in self.operators:
+            expression = expression.replace(op, f' {op} ')
+
         tokens = expression.strip().split()
         return self._evaluate_infix(tokens)
 
